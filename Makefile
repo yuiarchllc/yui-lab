@@ -7,7 +7,7 @@ API_CONTAINER_PORT := 80
 INFRA_IMAGE_NAME := yui-lab-infra
 INFRA_CONTAINER_NAME := yui-lab-infra-container
 INFRA_WORKDIR := /work
-INFRA_HOST_DIR := $(PWD)/infra
+INFRA_HOST_DIR := $(PWD)
 INFRA_AWS_REGION := ap-northeast-1
 
 
