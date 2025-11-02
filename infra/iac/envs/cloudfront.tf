@@ -16,6 +16,12 @@ resource "aws_cloudfront_distribution" "this" {
   comment             = ""
   default_root_object = "index.html"
 
+  logging_config {
+    include_cookies = false
+    bucket          = aws_s3_bucket.this.bucket_domain_name
+    prefix          = "access_log/"
+  }
+
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]

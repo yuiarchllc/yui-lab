@@ -3,6 +3,19 @@ resource "aws_s3_bucket" "this" {
   force_destroy = true
 }
 
+resource "aws_s3_bucket_ownership_controls" "this" {
+  bucket = aws_s3_bucket.this.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_acl" "this" {
+  bucket     = aws_s3_bucket.this.id
+  acl        = "private"
+  depends_on = [aws_s3_bucket_ownership_controls.this]
+}
+
 resource "aws_s3_bucket_policy" "this" {
   bucket = aws_s3_bucket.this.id
   policy = jsonencode({
@@ -16,9 +29,19 @@ resource "aws_s3_bucket_policy" "this" {
         }
         Action   = "s3:GetObject"
         Resource = "${aws_s3_bucket.this.arn}/*"
+      },
+      {
+        Sid    = "AllowCloudFrontLogging"
+        Effect = "Allow"
+        Principal = {
+          Service = "logging.s3.amazonaws.com"
+        }
+        Action   = "s3:PutObject"
+        Resource = "${aws_s3_bucket.this.arn}/access_log/*"
       }
     ]
   })
+  depends_on = [aws_s3_bucket_acl.this]
 }
 
 resource "aws_s3_bucket_versioning" "this" {
