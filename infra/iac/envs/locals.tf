@@ -1,7 +1,13 @@
 locals {
+  route53 = {
+    domain_name     = "mitsumune.click"
+    sub_domain_name = "lab"
+    zone_id         = "Z05121321C4XLWRFWE4U3"
+  }
   s3 = {
-    bucket_name  = "yui-lab-bucket"
-    statics_dir = "../../../apps/statics"
+    bucket_name         = "${local.route53.sub_domain_name}.${local.route53.domain_name}"
+    statics_dir         = "../../../apps/statics"
+    statics_path_prefix = ""
     content_types = {
       css  = "text/css"
       html = "text/html"

@@ -3,6 +3,24 @@ resource "aws_s3_bucket" "this" {
   force_destroy = true
 }
 
+resource "aws_s3_bucket_policy" "this" {
+  bucket = aws_s3_bucket.this.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "AllowCloudFrontAccess"
+        Effect = "Allow"
+        Principal = {
+          AWS = aws_cloudfront_origin_access_identity.this.iam_arn
+        }
+        Action   = "s3:GetObject"
+        Resource = "${aws_s3_bucket.this.arn}/*"
+      }
+    ]
+  })
+}
+
 resource "aws_s3_bucket_versioning" "this" {
   bucket = aws_s3_bucket.this.id
   versioning_configuration {
@@ -18,5 +36,5 @@ resource "aws_s3_object" "this" {
   content_type     = lookup(local.s3.content_types, element(split(".", each.value), length(split(".", each.value)) - 1), "text/plain")
   content_encoding = "utf-8"
   etag             = filemd5("${each.value}")
-  depends_on = [ aws_s3_bucket.this ]
+  depends_on       = [aws_s3_bucket.this]
 }
