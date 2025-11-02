@@ -19,7 +19,7 @@ resource "aws_cloudfront_distribution" "this" {
   logging_config {
     include_cookies = false
     bucket          = aws_s3_bucket.this.bucket_domain_name
-    prefix          = "access_log/"
+    prefix          = local.cloudfront.log_prefix
   }
 
   default_cache_behavior {

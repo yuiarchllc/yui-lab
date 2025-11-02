@@ -19,4 +19,7 @@ locals {
       png  = "image/png"
     }
   }
+  cloudfront = {
+    log_prefix = "access_log/"
+  }
 }
