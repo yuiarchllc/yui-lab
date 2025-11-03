@@ -1,6 +1,7 @@
 locals {
   general = {
-    region = "ap-northeast-1"
+    service_name = "yui-lab"
+    region       = "ap-northeast-1"
   }
   route53 = {
     domain_name     = "mitsumune.click"
