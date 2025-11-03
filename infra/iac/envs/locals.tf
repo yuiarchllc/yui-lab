@@ -1,4 +1,7 @@
 locals {
+  general = {
+    region = "ap-northeast-1"
+  }
   route53 = {
     domain_name     = "mitsumune.click"
     sub_domain_name = "lab"
