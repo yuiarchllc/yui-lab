@@ -26,4 +26,16 @@ locals {
   cloudfront = {
     log_prefix = "access_log/"
   }
+  alb = {
+    idle_timeout = 900
+  }
+  ec2 = {
+    ami              = "ami-0d5f5a4eaac1481cb"
+    instance_type    = "t3.nano"
+    root_volume_size = "10"
+    root_volume_type = "gp3"
+    ssh_cidr_blocks = [
+      "133.200.162.32/32",
+    ]
+  }
 }
