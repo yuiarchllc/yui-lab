@@ -23,6 +23,7 @@ yum update -y
 yum install php8.2 httpd -y
 systemctl enable httpd
 systemctl start httpd
+echo "<html><body><h1>Hello</h1></body></html>" > /var/www/html/index.html
   EOF
 }
 

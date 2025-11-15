@@ -6,7 +6,7 @@ locals {
   route53 = {
     domain_name     = "mitsumune.click"
     sub_domain_name = "lab"
-    zone_id         = "Z05121321C4XLWRFWE4U3"
+    zone_id         = "Z05000742TPFCB5Y6EWEG"
   }
   s3 = {
     bucket_name         = "${local.route53.sub_domain_name}.${local.route53.domain_name}"
