@@ -54,3 +54,14 @@ resource "aws_route_table_association" "public2" {
   subnet_id      = aws_subnet.public2.id
   route_table_id = aws_route_table.this.id
 }
+
+resource "aws_db_subnet_group" "this" {
+  name = "${local.general.service_name}-db-subnet-group"
+  subnet_ids = [
+    aws_subnet.private1.id,
+    aws_subnet.private2.id,
+  ]
+  tags = {
+    Name = "${local.general.service_name}-db-subnet-group"
+  }
+}

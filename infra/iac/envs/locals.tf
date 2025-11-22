@@ -41,4 +41,15 @@ locals {
       "133.200.162.32/32",
     ]
   }
+  db = {
+    cluster = {
+      engine          = "aurora-mysql"
+      engine_version  = "8.0.mysql_aurora.3.10.1"
+      database_name   = "yui_db"
+      master_username = "admin"
+    }
+    instance = {
+      instance_class = "db.t3.medium"
+    }
+  }
 }
