@@ -8,6 +8,9 @@ locals {
     sub_domain_name = "lab"
     zone_id         = "Z05000742TPFCB5Y6EWEG"
   }
+  kms = {
+    alias_name = "alias/yui-kms-key"
+  }
   s3 = {
     bucket_name         = "${local.route53.sub_domain_name}.${local.route53.domain_name}"
     statics_dir         = "../../../apps/statics"
