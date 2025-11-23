@@ -12,7 +12,7 @@ resource "aws_rds_cluster" "this" {
   skip_final_snapshot           = true
   db_subnet_group_name          = aws_db_subnet_group.this.name
   vpc_security_group_ids = [
-    aws_security_group.ec2.id,
+    aws_security_group.rds.id,
   ]
 }
 
