@@ -22,6 +22,8 @@ resource "aws_instance" "this" {
 yum update -y
 yum install php8.2 httpd -y
 
+dnf install mariadb105 -y
+
 systemctl enable amazon-ssm-agent
 systemctl start amazon-ssm-agent
 
