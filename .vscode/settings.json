@@ -1,5 +1,10 @@
 {
   "cSpell.words": [
-    "hostnames"
+    "ecspresso",
+    "hostnames",
+    "jsonnet",
+    "libsonnet",
+    "taskdef",
+    "tfstate"
   ]
 }

@@ -33,6 +33,14 @@ push-api:
 	docker tag $(API_IMAGE_NAME):latest $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(API_IMAGE_NAME):latest
 	docker push $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(API_IMAGE_NAME):latest
 
+check-api:
+	ecspresso tasks --config infra/ci-cd/api/ecspresso.yml
+	ecspresso diff --config infra/ci-cd/api/ecspresso.yml
+	ecspresso verify --config infra/ci-cd/api/ecspresso.yml
+
+deploy-api: rm-api build-api push-api check-api
+	ecspresso deploy --config infra/ci-cd/api/ecspresso.yml
+
 build-infra:
 	docker build -t $(INFRA_IMAGE_NAME) -f docker/infra/Dockerfile .
 

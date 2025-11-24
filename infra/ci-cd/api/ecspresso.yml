@@ -1,0 +1,10 @@
+cluster: yui-lab-cluster
+service: yui-lab-service
+task_definition: ecs-task-def.jsonnet
+service_definition: ecs-service-def.jsonnet
+region: ap-northeast-1
+
+plugins:
+  - name: tfstate
+    config:
+      url: s3://yui-sys-tf-state/yui-lab/terraform.tfstate
