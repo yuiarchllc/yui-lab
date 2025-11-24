@@ -18,6 +18,7 @@ provider "aws" {
 
 locals {
   general = {
+    account_id   = "467737513669"
     service_name = "yui-lab"
     region       = "ap-northeast-1"
   }
