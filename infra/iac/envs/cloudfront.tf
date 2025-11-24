@@ -81,7 +81,7 @@ resource "aws_cloudfront_distribution" "this" {
 
   price_class = "PriceClass_200"
 
-  aliases = ["${local.route53.sub_domain_name}.${local.route53.domain_name}"]
+  aliases = ["${local.route53.cdn_domain_name}.${local.route53.domain_name}"]
 
   viewer_certificate {
     cloudfront_default_certificate = false

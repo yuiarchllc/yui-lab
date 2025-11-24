@@ -23,14 +23,14 @@ locals {
   }
   route53 = {
     domain_name     = "mitsumune.click"
-    sub_domain_name = "lab"
+    cdn_domain_name = "lab"
     zone_id         = "Z05000742TPFCB5Y6EWEG"
   }
   kms = {
     alias_name = "alias/yui-kms-key"
   }
   s3 = {
-    bucket_name         = "${local.route53.sub_domain_name}.${local.route53.domain_name}"
+    bucket_name         = "${local.route53.cdn_domain_name}.${local.route53.domain_name}"
     statics_dir         = "../../../apps/statics"
     statics_path_prefix = ""
     content_types = {
