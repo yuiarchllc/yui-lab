@@ -59,9 +59,9 @@ resource "aws_ecs_service" "php_app" {
     assign_public_ip = true
   }
   load_balancer {
-    target_group_arn = aws_lb_target_group.this.arn
+    target_group_arn = aws_lb_target_group.api.arn
     container_name   = local.ecr.repos.api
     container_port   = 80
   }
-  depends_on = [aws_lb_target_group.this]
+  depends_on = [aws_lb_target_group.api]
 }

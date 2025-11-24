@@ -30,7 +30,8 @@ systemctl start amazon-ssm-agent
 systemctl enable httpd
 systemctl start httpd
 
-echo "<html><body><h1>Hello</h1></body></html>" > /var/www/html/index.html
+mkdir -p /var/www/html/app
+echo "<html><body><h1>Hello</h1></body></html>" > /var/www/html/app/index.html
   EOF
 }
 
