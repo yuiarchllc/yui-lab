@@ -12,8 +12,8 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   origin {
-    domain_name = aws_lb.app.dns_name
-    origin_id   = aws_lb.app.id
+    domain_name = module.alb_app.dns_name
+    origin_id   = module.alb_app.id
     custom_origin_config {
       http_port              = 80
       https_port             = 443
@@ -23,8 +23,8 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   origin {
-    domain_name = aws_lb.api.dns_name
-    origin_id   = aws_lb.api.id
+    domain_name = module.alb_api.dns_name
+    origin_id   = module.alb_api.id
     custom_origin_config {
       http_port              = 80
       https_port             = 443
@@ -47,43 +47,7 @@ resource "aws_cloudfront_distribution" "this" {
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = aws_lb.app.id
-    forwarded_values {
-      query_string = true
-      headers      = ["Host"]
-      cookies {
-        forward = "all"
-      }
-    }
-    viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = 0
-    default_ttl            = 0
-    max_ttl                = 0
-  }
-
-  ordered_cache_behavior {
-    path_pattern     = "/api/*"
-    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods   = ["GET", "HEAD"]
-    target_origin_id = aws_lb.api.id
-    forwarded_values {
-      query_string = true
-      headers      = ["Host"]
-      cookies {
-        forward = "all"
-      }
-    }
-    viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = 0
-    default_ttl            = 0
-    max_ttl                = 0
-  }
-
-  ordered_cache_behavior {
-    path_pattern     = "/app/*"
-    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods   = ["GET", "HEAD"]
-    target_origin_id = aws_lb.app.id
+    target_origin_id = aws_s3_bucket.this.id
     forwarded_values {
       query_string = true
       headers      = ["Host"]
@@ -112,6 +76,42 @@ resource "aws_cloudfront_distribution" "this" {
     min_ttl                = 0
     default_ttl            = 300
     max_ttl                = 300
+  }
+
+  ordered_cache_behavior {
+    path_pattern     = "/app/*"
+    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = module.alb_app.id
+    forwarded_values {
+      query_string = true
+      headers      = ["Host"]
+      cookies {
+        forward = "all"
+      }
+    }
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl                = 0
+    default_ttl            = 0
+    max_ttl                = 0
+  }
+
+  ordered_cache_behavior {
+    path_pattern     = "/api/*"
+    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = module.alb_api.id
+    forwarded_values {
+      query_string = true
+      headers      = ["Host"]
+      cookies {
+        forward = "all"
+      }
+    }
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl                = 0
+    default_ttl            = 0
+    max_ttl                = 0
   }
 
   custom_error_response {

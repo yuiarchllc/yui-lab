@@ -17,7 +17,7 @@
   },
   "loadBalancers": [
     {
-      "targetGroupArn": "{{ tfstate `aws_lb_target_group.api.arn` }}",
+      "targetGroupArn": "{{ tfstate `module.alb_api.aws_lb_target_group.this.arn` }}",
       "containerName": "yui-lab-api",
       "containerPort": 80
     }
