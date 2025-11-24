@@ -9,7 +9,7 @@ resource "aws_ecs_cluster" "this" {
   }
 }
 
-resource "aws_ecs_task_definition" "php_app" {
+resource "aws_ecs_task_definition" "api" {
   family                   = "${local.general.service_name}-task"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
@@ -42,10 +42,10 @@ resource "aws_ecs_task_definition" "php_app" {
   ])
 }
 
-resource "aws_ecs_service" "php_app" {
+resource "aws_ecs_service" "api" {
   name            = "${local.general.service_name}-service"
   cluster         = aws_ecs_cluster.this.id
-  task_definition = aws_ecs_task_definition.php_app.arn
+  task_definition = aws_ecs_task_definition.api.arn
   launch_type     = "FARGATE"
   desired_count   = 1
   network_configuration {
