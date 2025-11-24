@@ -70,4 +70,9 @@ locals {
       instance_class = "db.t3.medium"
     }
   }
+  ecr = {
+    repos = {
+      api = "yui-lab-api"
+    }
+  }
 }

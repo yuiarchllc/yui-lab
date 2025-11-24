@@ -1,3 +1,6 @@
+AWS_ACCOUNT_ID := 467737513669
+AWS_REGION := ap-northeast-1
+
 API_IMAGE_NAME := yui-lab-api
 API_CONTAINER_NAME := yui-lab-api-container
 API_PLATFORM := linux/amd64
@@ -25,8 +28,10 @@ down-api:
 	make api-rm
 
 push-api:
-	@echo "now implements."
-
+	aws ecr get-login-password --region $(AWS_REGION) | \
+		docker login --username AWS --password-stdin $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com
+	docker tag $(API_IMAGE_NAME):latest $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(API_IMAGE_NAME):latest
+	docker push $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(API_IMAGE_NAME):latest
 
 build-infra:
 	docker build -t $(INFRA_IMAGE_NAME) -f docker/infra/Dockerfile .
