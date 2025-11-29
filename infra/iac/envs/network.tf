@@ -65,3 +65,14 @@ resource "aws_db_subnet_group" "this" {
     Name = "${local.general.service_name}-db-subnet-group"
   }
 }
+
+resource "aws_elasticache_subnet_group" "this" {
+  name = "${local.general.service_name}-redis-subnet-group"
+  subnet_ids = [
+    aws_subnet.private1.id,
+    aws_subnet.private2.id,
+  ]
+  tags = {
+    Name = "${local.general.service_name}-redis-subnet-group"
+  }
+}
