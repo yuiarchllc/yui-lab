@@ -1,0 +1,16 @@
+# Terraform Variables Example File
+# Copy this file to terraform.tfvars and update with your values
+# cp terraform.tfvars.example terraform.tfvars
+
+# Project name used for resource naming
+# This will be used as a prefix for all AWS resources (S3 buckets, IAM roles, etc.)
+# Must contain only lowercase letters, numbers, and hyphens
+# Example: "yui-lab", "my-rag-project"
+project_name = "yui-lab"
+
+# AWS region where resources will be created
+# The region must have AWS Bedrock service available
+# Recommended regions: us-east-1, us-west-2
+# Note: Ensure you have enabled Bedrock model access in this region
+# Default: "us-east-1"
+aws_region = "us-east-1"

@@ -6,5 +6,6 @@
     "libsonnet",
     "taskdef",
     "tfstate"
-  ]
+  ],
+  "kiroAgent.configureMCP": "Disabled"
 }
