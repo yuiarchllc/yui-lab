@@ -53,7 +53,7 @@ resource "aws_bedrockagent_data_source" "rag_data_source" {
     chunking_configuration {
       chunking_strategy = "FIXED_SIZE"
       fixed_size_chunking_configuration {
-        max_tokens         = 300
+        max_tokens         = 512
         overlap_percentage = 20
       }
     }
