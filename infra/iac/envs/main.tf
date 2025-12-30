@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket  = "yui-sys-tf-state"
-    key     = "yui-lab/terraform.tfstate"
+    key     = "yui-lab/envs/terraform.tfstate"
     region  = "ap-northeast-1"
     encrypt = true
   }
