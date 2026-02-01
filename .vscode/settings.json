@@ -5,7 +5,8 @@
     "jsonnet",
     "libsonnet",
     "taskdef",
-    "tfstate"
+    "tfstate",
+    "uuidv"
   ],
   "kiroAgent.configureMCP": "Disabled"
 }

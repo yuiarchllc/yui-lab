@@ -1,0 +1,30 @@
+{
+  "name": "lambda-for-ecr",
+  "private": true,
+  "scripts": {
+    "deploy": "npm run dist && npm run image && npm run lambda:update",
+    "dist": "npm run test && npm run dist:clear && npm run dist:function && npm run dist:module",
+    "dist:clear": "rm -rf dist/*",
+    "dist:function": "tsc",
+    "dist:module": "cp package.json package-lock.json dist/ && cd dist && npm ci --omit=dev",
+    "docker:login": "aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws",
+    "image": "npm run docker:login && npm run image:build && npm run image:tag && npm run image:push",
+    "image:build": "docker build --platform=linux/amd64 -f docker/Dockerfile -t lambda-for-ecr:latest .",
+    "image:tag": "docker tag lambda-for-ecr:latest 467737513669.dkr.ecr.ap-northeast-1.amazonaws.com/lambda-for-ecr:latest",
+    "image:push": "docker push 467737513669.dkr.ecr.ap-northeast-1.amazonaws.com/lambda-for-ecr:latest",
+    "lambda:update": "aws lambda update-function-code --no-cli-pager --function-name lambda-for-ecr --image-uri 467737513669.dkr.ecr.ap-northeast-1.amazonaws.com/lambda-for-ecr:latest",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.119",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.1.0",
+    "@types/uuid": "^10.0.0",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "uuid": "^8.3.2"
+  }
+}
